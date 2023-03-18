@@ -9,14 +9,11 @@ import {
   Route
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
-require('dotenv').config()
 
 const App = () => {
 
   let pageSize = 5;
-  // let apiKey = process.env.REACT_APP_APIKEY;
-  let apiKey = "b407c2f21974438695df7613cdb9e90d";
-
+  let apiKey = process.env.REACT_APP_APIKEY;
 
   const [progress, setProgress] = useState(0);
 
