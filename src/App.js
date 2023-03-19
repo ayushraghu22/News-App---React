@@ -9,13 +9,14 @@ import {
   Route
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
+// require('dotenv').config()
 
 const App = () => {
 
   let pageSize = 5;
-  // let apiKey = process.env.REACT_APP_APIKEY;
-  let apiKey = "b407c2f21974438695df7613cdb9e90d";
-
+  // let apiKey = process.env.REACT_APP_APIKEY2;
+  let apiKey = 'OUySLTCaPTludLewYqJwrey7XKrka2Yj8aDWzzU8pM0';
+  // console.log(apiKey);
 
   const [progress, setProgress] = useState(0);
 
@@ -29,14 +30,14 @@ const App = () => {
           progress={progress}
         />
         <Routes>
-          <Route exact path="/" element={<News setProgress={setProgress} apiKey={apiKey} key="Home" pageSize={pageSize} country='in' category='general' />} />
-          <Route exact path="/general" element={<News setProgress={setProgress} apiKey={apiKey} key="general" pageSize={pageSize} country='in' category='general' />} />
+          <Route exact path="/" element={<News setProgress={setProgress} apiKey={apiKey} key="Home" pageSize={pageSize} country='in' category='world' />} />
+          <Route exact path="/general" element={<News setProgress={setProgress} apiKey={apiKey} key="general" pageSize={pageSize} country='in' category='world' />} />
           <Route exact path="/business" element={<News setProgress={setProgress} apiKey={apiKey} key="business" pageSize={pageSize} country='in' category='business' />} />
           <Route exact path="/entertainment" element={<News setProgress={setProgress} apiKey={apiKey} key="entertainment" pageSize={pageSize} country='in' category='entertainment' />} />
-          <Route exact path="/health" element={<News setProgress={setProgress} apiKey={apiKey} key="health" pageSize={pageSize} country='in' category='health' />} />
+          <Route exact path="/music" element={<News setProgress={setProgress} apiKey={apiKey} key="music" pageSize={pageSize} country='in' category='music' />} />
           <Route exact path="/science" element={<News setProgress={setProgress} apiKey={apiKey} key="science" pageSize={pageSize} country='in' category='science' />} />
-          <Route exact path="/sports" element={<News setProgress={setProgress} apiKey={apiKey} key="sports" pageSize={pageSize} country='in' category='sports' />} />
-          <Route exact path="/technology" element={<News setProgress={setProgress} apiKey={apiKey} key="technology" pageSize={pageSize} country='in' category='technology' />} />
+          <Route exact path="/sports" element={<News setProgress={setProgress} apiKey={apiKey} key="sports" pageSize={pageSize} country='in' category='sport' />} />
+          <Route exact path="/technology" element={<News setProgress={setProgress} apiKey={apiKey} key="technology" pageSize={pageSize} country='in' category='tech' />} />
         </Routes>
       </BrowserRouter>,
     </div>

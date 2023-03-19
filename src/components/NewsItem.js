@@ -11,7 +11,7 @@ let NewsItem = (props) => {
                     right: '0',
                     display: 'flex',
                     justifyContent: 'flex-end'
-                }} >{source}</span>
+                }} >{source ? source.slice(0,10): ""}</span>
 
                 <img src={imageUrl} className="card-img-top" alt="..." />
                 <div className="card-body">

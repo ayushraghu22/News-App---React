@@ -11,6 +11,7 @@ const News = (props) => {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
+    const apiKey = props.apiKey;
 
     const capitaliseFirstLetter = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -18,11 +19,20 @@ const News = (props) => {
 
     const updateNews = async () => {
         props.setProgress(10);
-        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=1&pageSize=${props.pageSize}`;
+        // let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=1&pageSize=${props.pageSize}`;
+        let url = `https://api.newscatcherapi.com/v2/search?q=world&topic=${props.category}&lang=en&page=1&page_size=${props.pageSize}`;
+        // let url = `https://api.newscatcherapi.com/v2/search?q=${props.category}&lang=en&page=1&page_size=${props.pageSize}`;
         // setState({ loading: true });
-        let data = await fetch(url);
+        let data = await fetch(url, {
+            method: 'GET',
+            headers:{
+                // 'x-api-key': '79zVF6WZEFnLtsIpvJtl76X13lsEyuci_HBD3xgYukI'
+                'x-api-key': apiKey
+            }
+        });
         props.setProgress(30);
         let parsedData = await data.json();
+        // console.log(parsedData);
         props.setProgress(70);
         setArticles(parsedData.articles);
         setTotalResults(parsedData.totalResults);
@@ -47,10 +57,19 @@ const News = (props) => {
     // }
 
     const fetchMoreData = async () => {
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
+        // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
+        let url = `https://api.newscatcherapi.com/v2/search?q=world&topic=${props.category}&lang=en&page=${page + 1}&page_size=${props.pageSize}`;
+        // let url = `https://api.newscatcherapi.com/v2/search?q=${props.category}&lang=en&page=${page + 1}&page_size=${props.pageSize}`;
         setPage(page + 1);
-        let data = await fetch(url);
+        let data = await fetch(url, {
+            method: 'GET',
+            headers:{
+                // 'x-api-key': '79zVF6WZEFnLtsIpvJtl76X13lsEyuci_HBD3xgYukI'
+                'x-api-key': apiKey
+            }
+        });
         let parsedData = await data.json();
+        // console.log(parsedData);
         setArticles(articles.concat(parsedData.articles));
         setTotalResults(parsedData.totalResults);
     };
@@ -70,9 +89,9 @@ const News = (props) => {
                         {
                             articles.map((element) => {
                                 // let {title, description, urlToImage, url} = element;  // destructuring.
-                                return <div className="col-md-4" key={element.url}>
-                                    <NewsItem title={element.title ? element.title : ""} description={element.description ? element.description : ""} imageUrl={element.urlToImage ? element.urlToImage : ""} newsUrl={element.url ? element.url : ""} date={element.publishedAt}
-                                        author={element.author} source={element.source.name} />
+                                return <div className="col-md-4" key={element.link}>
+                                    <NewsItem title={element.title ? element.title : ""} description={element.summary ? element.summary : ""} imageUrl={element.media ? element.media : ""} newsUrl={element.link ? element.link : ""} date={element.published_date}
+                                        author={element.author} source={element.rights} />
                                 </div>
                             })
                         }
